@@ -1,6 +1,8 @@
 # FE-blog
 个人前端技术博客，励志成为前端大佬O(∩_∩)O哈哈~。
 
+觉得文章不错的可以star下，灰常感谢！！！
+
 [掘金博客地址](https://juejin.im/user/5922cebcda2f60005d5f2431/posts)
 
 ## 框架
