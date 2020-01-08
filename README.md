@@ -11,6 +11,8 @@
 
 [关于Vue和React的一些对比及个人思考（上）](./关于Vue和React的一些对比及个人思考（上）.md)
 
+[react hooks入门](./react-hooks.md)
+
 ## 模块化
 [说说Node和ES6模块化那些不为人知的事儿](./说说Node和ES6模块化那些不为人知的事儿.md)
 
