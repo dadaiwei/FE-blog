@@ -21,6 +21,8 @@
 
 [webpack4入门](./webpack4入门.md)
 
+[前端轻量化部署脚手架实践](./前端轻量化部署脚手架实践.md)
+
 ## 日常实践
 [vue和react中如何优雅地使用axios取消请求](./vue和react中如何优雅地使用axios取消请求.md)
 
