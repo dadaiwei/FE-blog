@@ -296,7 +296,36 @@ oldStartIdx，newStartIdx都像右移动一位。
 ### react
 react中diff存在三种不同的粒度，先是组件树级别，再是组件级别，最后元素级别。
 
+1.两棵树分层比较，并且只在同一层进行比较。比如旧树A的子节点B移动到C节点。
+
+![react新旧节点比较](./关于Vue和React的一些对比及个人思考/react新旧节点比较.png)
+
+具体操作如下：
+
+![react tree diff](./关于Vue和React的一些对比及个人思考/react树层级操作.png)
+
+先创建新的B节点，添加到C的子节点中，然后再删除A的子节点B完成。
+
+2.基于组件层级比较也是参照原策略比较，React允许用户通过shouldComponentUpdate()来判断该组件是不是需要进行diff比较，但是如果调用了forceUpdate方法，强制进行diff比较。
+
+![react组件diff](./关于Vue和React的一些对比及个人思考/react组件diff.png)
+
+具体操作如下：
+
+![react组件层级操作](./关于Vue和React的一些对比及个人思考/react组件层级操作.png)
+
+当组件F变为I的时候，先判端F和I是不同类型的组件，先删除F及其子节点，再重新创建I及其子节点。
+
+3.元素级别比较diff比较主要涉及插入、移动、删除3种节点操作。
+
+插入：新的元素是全新的节点，将该元素插入新的集合中
+
+移动：元素已经存在于集合中，只是位置发生改变。
+
+删除：元素不在新集合中，需要删除该元素。
 
 ## 19.路由(vue-router vs react-router-dom)
+### vue
 
+### react
 ## 20.状态管理(vuex vs redux)
