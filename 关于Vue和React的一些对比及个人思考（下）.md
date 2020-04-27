@@ -249,11 +249,54 @@ hooks优点：
 
 缺点：
 - 1.hooks不能用于循环、条件判断、函数嵌套中
-- 2.状态不同步，异步回调变量引用还是之前的
+- 2.状态不同步，异步回调状态引用还是之前的
 ## 18.diff算法
 ### vue
+vue中diff比较存在两种不同的粒度，先是组件级别，再是元素级别。
+
+![新旧节点比较](./关于Vue和React的一些对比及个人思考/新旧节点比较.png)
+
+1.当组件中的data数据变化时，触发data数据的setter，会通过notify通知组件对应的Watcher，执行updateComponent等一连串操作，进行新旧节点比较。
+
+2.对比新旧节点树，判断节点类型是否相同
+<br>
+（1）类型不同，创建新节点，替换旧节点
+<br>
+（2）类型相同，继续比较节点属性
+<br>
+（3）节点属性不同时，更新节点属性，再比较子节点
+<br>
+（4）新dom树没有子节点时，删除旧dom树的节点列表
+<br>
+（5）新dom树有子节点，旧dom树没有子节点时，新增子节点
+<br>
+（6）新旧dom树都有子节点，调用updateChildren比较子节点列表。
+
+3.子节点更新策略
+
+![子节点更新策略](./关于Vue和React的一些对比及个人思考/子节点比较.png)
+
+1.旧节点的起始位置为oldStartIdx,截至位置为oldEndIdx,新节点的起始位置为newStartIdx,截至位置为newEndIdx。
+<br>
+2.新旧children的起始位置的元素两两对比，顺序是vnode, oldVnode; newEndVnode, oldEndVnode;newEndVnode, oldVnode;newStartIdx, oldEndIdx
+<br>
+3.vnode, oldVnode节点相同，执行一次patchVnode过程，也就是递归对比相应子节点，并替换节点的过程。
+oldStartIdx，newStartIdx都像右移动一位。
+<br>
+4.newEndVnode, oldEndVnode节点相同，执行一次patchVnode过程，递归对比相应子节点，并替换节点。oldEndIdx， newEndIdx都像左移动一位。
+<br>
+5.newEndVnode, oldVnode节点相同，执行一次patchVnode过程，并将旧的oldVnode移动到尾部,oldStartIdx右移一味，newEndIdx左移一位。
+<br>
+6.newStartIdx, oldEndIdx节点相同，执行一次patchVnode过程，并将旧的oldEndVnode移动到头部,oldEndIdx左移一味，newStartIdx右移一位。
+<br>
+7.四种组合都不相同，则会搜索旧节点所有子节点，找到将这个旧节点和vnode执行patchVnode过程。
+<br>
+8.不断对比的过程使得oldStartIdx不断逼近oldEndIdx，newStartIdx不断逼近newEndIdx。当oldEndIdx <= oldStartIdx说明旧节点已经遍历完了，此时只要批量增加新节点即可。当newEndIdx <= newStartIdx说明旧节点还有剩下，此时只要批量删除旧节点即可。
 
 ### react
+react中diff存在三种不同的粒度，先是组件树级别，再是组件级别，最后元素级别。
+
+
 ## 19.路由(vue-router vs react-router-dom)
 
 ## 20.状态管理(vuex vs redux)
