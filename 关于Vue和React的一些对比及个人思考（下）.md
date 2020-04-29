@@ -326,6 +326,6 @@ react中diff存在三种不同的粒度，先是组件树级别，再是组件�
 
 ## 19.路由(vue-router vs react-router-dom)
 ### vue
-
+vue中使用vue-router负责路由管理，vue-router支持hash与history模式。
 ### react
 ## 20.状态管理(vuex vs redux)
